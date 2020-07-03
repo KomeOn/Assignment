@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+  <head>
+      <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+    <!-- User Defined Js scripts-->
+    <script type = "text/javascript" src ="../scripts/d3.min.js"></script>
+    <script type="text/javascript" src="../scripts/app.js"></script>
+    <script type="text/javascript" src="../scripts/angular-ui-router.js"></script>
+    <!-- User Defined stylesheets-->
+    <link rel="stylesheet" href="../css/styles.css">
+  </head>
+  <body>
+      <header class="container-fluid w-100 p-0 mx-0 mt-2">
+          <div class="d-flex justify-content-center">
+            <h1>Decision Point</h1>
+          </div>
+      </header>
+    <div class="hr-divider bg-dark my-4" style="height: 1px;"></div>
+    <div class="container-fluid px-3 py-2 m-0" ng-app="myApp" >
+        <div class="md-form mt-0">
+            <input class="form-control" type="text" placeholder="Search" ng-model="" name="user">
+        </div>
+        <div class="row" >
+            <div class="col-md-3" ng-controller="myCtrl">
+                <div ng-repeat="server in servers">
+                    <div class="card mb-4 w-100">
+                        <img class="card-img-top" src="../sources/img_avatar1.png" alt="Card image">
+                        <div class="card-body">
+                            <h5 class="card-title">Name: {{server.name}}</h5>
+                            <p>Username: {{server.username}}</p>
+                            <p>Email: {{server.email}}</p>
+                        </div>
+                        <p id="demo"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9" ng-controller="myPost">
+                <div class="card-columns">
+                    <div ng-repeat="post in posts">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">UserID: {{post.userId}}</h5>
+                                <p>Post Title: {{post.title}}</p>    
+                            </div>
+                        </div>
+                    </div>
+                </div>   
+            </div>
+        </div>
+    </div>
+  </body>
+  <script>
+    $(document).ready(function() {
+
+        $('img').click(function (event) {
+            alert($(this).index());
+        });
+       
+    });
+    /*$('div').click(function (event) {
+        alert($(this).index());
+    });*/    
+    /*function SendFunction(){
+        document.getElementById("demo").innerHTML=document.getElementsByClassName('name')[0].innerText;
+        console.log()
+    }*/
+  </script>
+</html>
