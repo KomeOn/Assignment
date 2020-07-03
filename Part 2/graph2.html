@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script>
+   </head>
+
+   <body>
+      <div id="container" class="svg-container"></div>
+      <script>
+            var width = 970;
+            var height = 470;
+            var adj = 30;
+            var svg = d3.select("div#container").append("svg")
+            .attr("preserveAspectRatio", "xMinYMin meet")
+            .attr("viewBox", "-" + adj + " -"+ (adj/2) + " " + (width + adj) + " " + (height + adj))
+            .style("padding", 5)
+            .style("margin", 5)
+            .classed("svg-content", true);
+
+            var xScale = d3.scaleBand()
+                .rangeRound([0, width])
+                .paddingInner(0.05);
+            var yScale = d3.scaleLinear()
+                .rangeRound([height, 0]);
+
+            var dataset = d3.csv("graph_FD.csv");
+            dataset.then(function(data) {
+                data.map(function(d) {
+                        d.val_1 = +d.val_1;
+                        d.val_2 = +d.val_2;
+                        d.mark_val = +d.mark_val;
+                        return d;});
+            });
+
+            dataset.then(function(data) {  
+                xScale.domain(data.map(function(d) {return d.Brand;}))
+                yScale.domain([0, d3.max(data, function(d){
+                    return d.val_1; })
+                    ]);
+            });
+        
+            console.log(dataset);
+            
+            svg.append("g")
+                .attr("class", "axis")
+                .attr("transform", "translate(0," + height*4 + ")")
+                .call(d3.axisBottom(xScale));
+
+            svg.append("g")
+                .attr("class", "axis")
+                .call(d3.axisLeft(yScale));
+            
+            dataset.then(function(data) {  
+                svg.selectAll("div")
+                .data(data)
+                .enter()
+                .append("rect")
+                .attr("class", "bar")
+                .attr("x", function (d, i) {
+                    for (i>0; i < data.length; i++) {
+                        return i * 50;
+                    }
+                })
+                .attr("y", function (d) {
+                    return height - (d.val_2/10);
+                })
+                .attr("width", 20)
+                .attr("height", function (d) {
+                    return d.val_2/10;
+                })
+                .attr("fill", function(d) {
+                    if (d.val_2 <= d.val_1) {
+                        return d3.rgb(144, 238, 144);
+                    } else {
+                      return d3.rgb(255,160,122);
+                    }
+                  });
+            });
+
+            dataset.then(function(data) {  
+                svg.selectAll("div")
+                .data(data)
+                .enter()
+                .append("rect")
+                .attr("class", "bar")
+                .attr("x", function (d, i) {
+                    for (i>0; i < data.length; i++) {
+                        return i * 50;
+                    }
+                })
+                .attr("y", function (d) {
+                    return height - (d.val_1/10);
+                })
+                .attr("width", 10)
+                .attr("height", function (d) {
+                    return d.val_1/10;
+                })
+                .attr("fill", function(d) {
+                    if (d.val_2 <= d.val_1) {
+                      return "green";
+                    } else {
+                      return "red";
+                    }
+                  });
+            });
+
+            dataset.then(function(data) {  
+                svg.selectAll("div")
+                .data(data)
+                .enter()
+                .append("rect")
+                .attr("class", "bar")
+                .attr("x", function (d, i) {
+                    for (i>0; i < data.length; i++) {
+                        return i * 50;
+                    }
+                })
+                .attr("y", function (d) {
+                    return height - (d.mark_val/10);
+                })
+                .attr("height", 3)
+                .attr("width", function (d) {
+                    return 25;
+                });
+            });
+      </script>
+   </body>
+</html>
